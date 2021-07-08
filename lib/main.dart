@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_course_app/ui/firstscreen.dart';
 
 void main() {
   runApp(MyApp());
@@ -14,13 +15,18 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.purple
       ),
-      home: MyHomePage(title: 'Flutter Course App'),
+      home: FirstScreen()//MyHomePage(title: 'Flutter Course App'),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key? key, required this.title}) : super(key: key);
+
+  /*String title;
+  MyHomePage(String title){
+    this.title = title;
+  }*/
 
   // This widget is the home page of your application. It is stateful, meaning
   // that it has a State object (defined below) that contains fields that affect
@@ -39,11 +45,22 @@ class MyHomePage extends StatefulWidget {
   }
 }
 
+/*class B extends A{
+  C createState(){
+    return C();
+  }
+}
+class C extends State<B>{
+
+
+}*/
+
 class _MyHomePageState extends State<MyHomePage> {
   int _counter=0;
   String hello="check";
   int? check;
   TestClass obj = new TestClass();
+  Color myColor = Color(0xFFFFFFFF);
 
 
 
@@ -69,12 +86,6 @@ class _MyHomePageState extends State<MyHomePage> {
   void didChangeDependencies() {
     // TODO: implement didChangeDependencies
     super.didChangeDependencies();
-  }
-
-  @override
-  void dispose() {
-    // TODO: implement dispose
-    super.dispose();
   }
 
   @override
@@ -116,13 +127,14 @@ class _MyHomePageState extends State<MyHomePage> {
           // axis because Columns are vertical (the cross axis would be
           // horizontal).
           mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Text(
-              'You have pushed the button this many times:',
+              "You have pushed the button this many times:",
             ),
             Text(
               '$_counter',
-              style: TextStyle(fontSize: 20),
+              style: TextStyle(fontSize: 20,color: Colors.deepPurple),
             ),
           ],
         ),
@@ -130,9 +142,15 @@ class _MyHomePageState extends State<MyHomePage> {
       floatingActionButton: FloatingActionButton(
         onPressed: _incrementCounter,
         tooltip: 'Increment',
-        child: Icon(Icons.add),
+        child: Icon(Icons.camera),
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
   }
 }
 
