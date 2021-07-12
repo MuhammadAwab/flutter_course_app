@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:flutter_course_app/utils/app_colors.dart';
 
 class FirstScreen extends StatefulWidget {
   const FirstScreen({Key? key}) : super(key: key);
@@ -8,12 +10,14 @@ class FirstScreen extends StatefulWidget {
 }
 
 class _FirstScreenState extends State<FirstScreen> {
+
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: _myBar(),
+      drawer: _myDrawer(context),
       body: _myBody(context,width,height),
     );
   }
@@ -46,6 +50,67 @@ class _FirstScreenState extends State<FirstScreen> {
           color: Colors.red,
         ),
         child: Image.asset('images/logo_latest.png',fit: BoxFit.fill,)//Text('My Container'),
+    );
+  }
+  
+  Widget _myDrawer(BuildContext context){
+    return Drawer(
+      child: ListView(
+        children: [
+          _myDHeader(context),
+          _customListTile(context, 'Home'),
+          _customListTile(context, 'Profile'),
+          _customListTile(context, 'Sign Out'),
+          /*ListTile(
+            leading: Icon(Icons.home),
+            title: Text('Home'),
+            subtitle: Text('Go to Home'),
+            trailing: Icon(Icons.arrow_forward_ios),
+          ),
+          ListTile(
+            leading: Icon(Icons.person),
+            title: Text('Profile'),
+            subtitle: Text('Go to Profile'),
+            trailing: Icon(Icons.arrow_forward_ios),
+          ),
+          ListTile(
+            leading: Icon(Icons.logout),
+            title: Text('Sign Out'),
+            subtitle: Text('Go to Login'),
+            trailing: Icon(Icons.arrow_forward_ios),
+          )*/
+        ],
+      ),
+    );
+  }
+
+  Widget _customListTile(BuildContext context,String type){
+    IconData iconData = IconData(0);
+    if(type=="Home"){
+      iconData= Icons.home;
+    }
+    if(type=="Profile"){
+      iconData= Icons.person;
+    }
+    if(type=="Sign Out"){
+      iconData= Icons.logout;
+    }
+    return ListTile(
+      leading: Icon(iconData/*(type=="Home")?Icons.home:
+                    (type=="Profile")?Icons.person:
+                    (type=="Sign Out")?Icons.logout:Icons.not_interested*/),
+      title: Text(type),
+      subtitle: Text('Go to $type'),
+      trailing: Icon(Icons.arrow_forward_ios),
+    );
+  }
+
+  Widget _myDHeader(BuildContext context){
+    return DrawerHeader(
+      decoration: BoxDecoration(
+          color: AppColors.primary
+      ),
+      child: Text('HEADER'),
     );
   }
 
