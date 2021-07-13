@@ -110,7 +110,29 @@ class _FirstScreenState extends State<FirstScreen> {
       decoration: BoxDecoration(
           color: AppColors.primary
       ),
-      child: Text('HEADER'),
+      child: _myDHBody(
+          context,
+          'Mark',
+          'mark@gmail.com',
+          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTJkueqf2PfkXtUe_p_kd7j4SBwBEtacRFDmB7O5situL9zj1QSbuV9QWOx8wDqqEDPf5g&usqp=CAU'),
+    );
+  }
+
+  Widget _myDHBody(BuildContext context,String name,String email,String imgLink){
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        CircleAvatar(
+          backgroundImage: NetworkImage(imgLink),
+          radius: 35,
+        ),
+        SizedBox(
+          height: MediaQuery.of(context).size.height*0.02,
+        ),
+        Text(name,style: TextStyle(color: AppColors.whiteColor),),
+        Text(email,style: TextStyle(color: AppColors.whiteColor),)
+      ],
     );
   }
 
