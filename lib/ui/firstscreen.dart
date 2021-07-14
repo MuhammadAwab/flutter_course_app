@@ -15,16 +15,42 @@ class _FirstScreenState extends State<FirstScreen> {
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
-    return Scaffold(
-      appBar: _myBar(),
-      drawer: _myDrawer(context),
-      body: _myBody(context,width,height),
+    return DefaultTabController(
+        length: 4,
+        child: Scaffold(
+          appBar: _myBar(),
+          drawer: _myDrawer(context),
+          body: _myTabBarViewBody(context)//_myBody(context,width,height),
+    ));
+  }
+
+  Widget _myTabBarViewBody(BuildContext context){
+    return TabBarView(
+        children:[
+          _myTabBody(context, 'Burger', Icons.fastfood_rounded),
+          _myTabBody(context, 'Pizza', Icons.local_pizza),
+          _myTabBody(context, 'Deals', Icons.fastfood_outlined),
+          _myTabBody(context, 'Drinks', Icons.local_drink_rounded),
+        ]
+    );
+  }
+
+  Widget _myTabBody(BuildContext context,String type,IconData iconData){
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(type,style: TextStyle(fontSize: 20),),
+          Icon(iconData,size: 20,)
+        ],
+      ),
     );
   }
 
   PreferredSizeWidget _myBar(){
     return AppBar(
       title: Text('My Bar'),
+      bottom: _myTabBar(context),
     );
   }
 
@@ -124,6 +150,10 @@ class _FirstScreenState extends State<FirstScreen> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         CircleAvatar(
+          //1- Image.asset()
+          //2- Image.network(url)
+          //3- AssetImage()
+          //4- NetworkImage(url)
           backgroundImage: NetworkImage(imgLink),
           radius: 35,
         ),
@@ -133,6 +163,24 @@ class _FirstScreenState extends State<FirstScreen> {
         Text(name,style: TextStyle(color: AppColors.whiteColor),),
         Text(email,style: TextStyle(color: AppColors.whiteColor),)
       ],
+    );
+  }
+
+  PreferredSizeWidget _myTabBar(BuildContext context){
+    return TabBar(
+        tabs:[
+          _myTab(context, 'Burger', Icons.fastfood_rounded),
+          _myTab(context, 'Pizza', Icons.local_pizza),
+          _myTab(context, 'Deals', Icons.fastfood_outlined),
+          _myTab(context, 'Drinks', Icons.local_drink_rounded),
+        ]
+    );
+  }
+
+  Widget _myTab(BuildContext context,String type,IconData iconData){
+    return Tab(
+      text: type,
+      icon: Icon(iconData),
     );
   }
 
