@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_course_app/ui/mybottombar.dart';
 import 'package:flutter_course_app/utils/app_colors.dart';
 
 class FirstScreen extends StatefulWidget {
@@ -20,7 +21,8 @@ class _FirstScreenState extends State<FirstScreen> {
         child: Scaffold(
           appBar: _myBar(),
           drawer: _myDrawer(context),
-          body: _myTabBarViewBody(context)//_myBody(context,width,height),
+          body: _myTabBarViewBody(context),
+          bottomNavigationBar: MyBottomBar(currIndex: 0,),//_myBody(context,width,height),
     ));
   }
 
@@ -183,5 +185,5 @@ class _FirstScreenState extends State<FirstScreen> {
       icon: Icon(iconData),
     );
   }
-
+  
 }
