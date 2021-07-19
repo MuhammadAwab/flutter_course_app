@@ -10,12 +10,13 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      //debugShowCheckedModeBanner: true,
       debugShowCheckedModeBanner: true,
       title: "Flutter Course",
       theme: ThemeData(
         primarySwatch: Colors.purple
       ),
-      home: FirstScreen()//MyHomePage(title: 'Flutter Course App'),
+      home: FirstScreen()//MyHomePage(title: 'Flutter Course App')//,
     );
   }
 }
@@ -64,6 +65,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
 
 
+
   void _incrementCounter() {
     setState(() {
       // This call to setState tells the Flutter framework that something has
@@ -86,6 +88,8 @@ class _MyHomePageState extends State<MyHomePage> {
   void didChangeDependencies() {
     // TODO: implement didChangeDependencies
     super.didChangeDependencies();
+    check=check!+1;
+    print('$check');
   }
 
   @override
@@ -105,7 +109,7 @@ class _MyHomePageState extends State<MyHomePage> {
         leading: Icon(Icons.info),
         actions: [
           Icon(Icons.title),
-          Icon(Icons.title)
+          Icon(Icons.check)
         ],
       ),
       body: Center(
@@ -151,6 +155,7 @@ class _MyHomePageState extends State<MyHomePage> {
   void dispose() {
     // TODO: implement dispose
     super.dispose();
+    print('ON DISPOSE CALLED');
   }
 }
 

@@ -11,19 +11,72 @@ class FirstScreen extends StatefulWidget {
 }
 
 class _FirstScreenState extends State<FirstScreen> {
+  GlobalKey<ScaffoldState> _gKey = new GlobalKey<ScaffoldState>();
+  bool _showSheet = false;
+  IconData myIcon = Icons.check;
+  PersistentBottomSheetController? _sheetController;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
+
     return DefaultTabController(
         length: 4,
         child: Scaffold(
+          key: _gKey,
           appBar: _myBar(),
           drawer: _myDrawer(context),
           body: _myTabBarViewBody(context),
-          bottomNavigationBar: MyBottomBar(currIndex: 0,),//_myBody(context,width,height),
+          bottomNavigationBar: MyBottomBar(currIndex: 0,),
+          floatingActionButton: FloatingActionButton(
+            onPressed: (){
+              if(!_showSheet){
+                setState(() {
+                  _sheetController = _gKey.currentState!.showBottomSheet((context){
+                    return _myBottomSheet();
+                  });
+                  myIcon = Icons.close;
+                  _showSheet=true;
+                });
+                //Scaffold.of(context).showBottomSheet((context) =>_myBottomSheet());
+              }
+              else{
+                setState(() {
+                  _sheetController!.close();
+                  _sheetController=null;
+                  myIcon = Icons.check;
+                  _showSheet=false;
+                });
+
+              }
+              //customShowSheet(context)
+            },
+            tooltip: 'Increment',
+            child: Icon(myIcon),
+          ),//_myBody(context,width,height),
     ));
+  }
+
+  customShowSheet(BuildContext context){
+    if(!_showSheet){
+      //_gKey.currentState!.showBottomSheet((context)=>_myBottomSheet());
+      Scaffold.of(context).showBottomSheet((context) =>_myBottomSheet());
+    }
+
+  }
+
+  Widget _myBottomSheet(){
+    return BottomSheet(
+        onClosing: onClosingSheet,
+        builder: _sheetView
+    );
   }
 
   Widget _myTabBarViewBody(BuildContext context){
@@ -79,6 +132,21 @@ class _FirstScreenState extends State<FirstScreen> {
         ),
         child: Image.asset('images/logo_latest.png',fit: BoxFit.fill,)//Text('My Container'),
     );
+  }
+
+  Widget _sheetView(BuildContext context){
+    return Container(
+      width: MediaQuery.of(context).size.width,
+      height: MediaQuery.of(context).size.height*0.6,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.only(topLeft: Radius.circular(25),topRight: Radius.circular(25)),
+        color: AppColors.primary,
+      ),
+    );
+  }
+
+  void onClosingSheet(){
+    print('SHEET CLOSED');
   }
   
   Widget _myDrawer(BuildContext context){
