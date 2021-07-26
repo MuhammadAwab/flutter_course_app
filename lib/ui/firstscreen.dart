@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_course_app/ui/mybottombar.dart';
 import 'package:flutter_course_app/utils/app_colors.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class FirstScreen extends StatefulWidget {
   const FirstScreen({Key? key}) : super(key: key);
@@ -20,6 +21,7 @@ class _FirstScreenState extends State<FirstScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
+
   }
 
   @override
@@ -198,8 +200,19 @@ class _FirstScreenState extends State<FirstScreen> {
       title: Text(type),
       subtitle: Text('Go to $type'),
       trailing: Icon(Icons.arrow_forward_ios),
+      onTap: (){
+        Fluttertoast.showToast(
+            msg: type,
+            textColor: AppColors.whiteColor,
+            gravity: ToastGravity.CENTER,
+            toastLength: Toast.LENGTH_LONG,
+            backgroundColor: AppColors.primary,
+        );
+      },
     );
   }
+
+
 
   Widget _myDHeader(BuildContext context){
     return DrawerHeader(
