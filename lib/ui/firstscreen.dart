@@ -21,7 +21,6 @@ class _FirstScreenState extends State<FirstScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
-
   }
 
   @override
@@ -211,8 +210,6 @@ class _FirstScreenState extends State<FirstScreen> {
       },
     );
   }
-
-
 
   Widget _myDHeader(BuildContext context){
     return DrawerHeader(
