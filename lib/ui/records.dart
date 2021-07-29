@@ -49,7 +49,9 @@ class _RecordsState extends State<Records> {
               },
             );
           }).toList(),
-        )
+        ),
+        SizedBox(height: 20,),
+        _myStack(context)
       ],
     );
   }
@@ -60,30 +62,51 @@ class _RecordsState extends State<Records> {
         child: Image.network(i,fit: BoxFit.cover,),
         borderRadius: BorderRadius.circular(15),),
       onTap: (){
-        //showCustomDialog(context);
-        showDialog(
-            context: context,
-            builder: (context){
-              return AlertDialog(
-                title: Text('Testing Dialog'),
-                content: CupertinoTextField(
-                  controller: tc,
-                ),//Text('This is a testing Dialog'),
-                actions: [
-                  FlatButton(
-                      child: Text('OK'),
-                      onPressed: (){
-                        Navigator.of(context).pop();
-                      })
-                ],
-
-              );}
-        );
+        showCustomDialog(context);
       },
     );
   }
 
   void showCustomDialog(BuildContext context){
+    showDialog(
+        context: context,
+        builder: (context){
+          return AlertDialog(
+            title: Text('Testing Dialog'),
+            content: CupertinoTextField(
+              controller: tc,
+            ),//Text('This is a testing Dialog'),
+            actions: [
+              FlatButton(
+                  child: Text('OK'),
+                  onPressed: (){
+                    Navigator.of(context).pop();
+                  })
+            ],
 
+          );}
+    );
+  }
+  
+  Widget _myStack(BuildContext context){
+    return Container(
+      height: MediaQuery.of(context).size.height*0.4,
+      width: MediaQuery.of(context).size.width*0.5,
+      color: Colors.grey,
+      child: Stack(
+        children: [
+          Image.asset('images/abc.jpg',
+            fit: BoxFit.fill,
+            height: MediaQuery.of(context).size.height*0.4,
+            width: MediaQuery.of(context).size.width*0.5,
+          ),
+          Positioned.fill(
+            child: Text('My Wallpaper',style: TextStyle(fontSize: 14,color: Colors.black,fontWeight: FontWeight.bold),),
+            bottom:  MediaQuery.of(context).size.height*0.35,
+            left: MediaQuery.of(context).size.width*0.05,
+          )
+        ],
+      ),
+    );
   }
 }
