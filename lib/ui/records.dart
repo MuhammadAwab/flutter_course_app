@@ -12,7 +12,7 @@ class Records extends StatefulWidget {
 
 class _RecordsState extends State<Records> {
 
-  List<String> _imgPaths = ['assets/a.png','assets/b.png','assets/c.png'];
+  //List<String> _imgPaths = ['assets/a.png','assets/b.png','assets/c.png']; //Just for example
   TextEditingController tc = new TextEditingController();
 
   @override
