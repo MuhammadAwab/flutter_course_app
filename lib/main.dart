@@ -1,8 +1,14 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_course_app/ui/firstscreen.dart';
+import 'package:flutter_course_app/ui/registration.dart';
 
-void main() {
-  runApp(MyApp());
+
+void main() async{
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp().then((value){
+    runApp(MyApp());
+  });
 }
 
 class MyApp extends StatelessWidget {
@@ -16,7 +22,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.purple
       ),
-      home: FirstScreen()//MyHomePage(title: 'Flutter Course App')//,
+      home: Registration()//FirstScreen()//MyHomePage(title: 'Flutter Course App')//,
     );
   }
 }
