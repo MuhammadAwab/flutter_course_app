@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_course_app/ui/mybottombar.dart';
 
 class Profile extends StatefulWidget {
-  const Profile({Key? key}) : super(key: key);
+  const Profile({Key key}) : super(key: key);
 
   @override
   _ProfileState createState() => _ProfileState();

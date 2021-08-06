@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'mybottombar.dart';
 
 class Records extends StatefulWidget {
-  const Records({Key? key}) : super(key: key);
+  const Records({Key key}) : super(key: key);
 
   @override
   _RecordsState createState() => _RecordsState();

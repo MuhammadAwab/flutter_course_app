@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_course_app/ui/firstscreen.dart';
@@ -13,6 +14,9 @@ void main() async{
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
+
+  User user = FirebaseAuth.instance.currentUser;
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -22,13 +26,13 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.purple
       ),
-      home: Registration()//FirstScreen()//MyHomePage(title: 'Flutter Course App')//,
+      home: (user!=null)?FirstScreen():Registration()//FirstScreen()//MyHomePage(title: 'Flutter Course App')//,
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key? key, required this.title}) : super(key: key);
+  MyHomePage({Key key, this.title}) : super(key: key);
 
   /*String title;
   MyHomePage(String title){
@@ -65,7 +69,7 @@ class C extends State<B>{
 class _MyHomePageState extends State<MyHomePage> {
   int _counter=0;
   String hello="check";
-  int? check;
+  int check;
   TestClass obj = new TestClass();
   Color myColor = Color(0xFFFFFFFF);
 
@@ -94,7 +98,7 @@ class _MyHomePageState extends State<MyHomePage> {
   void didChangeDependencies() {
     // TODO: implement didChangeDependencies
     super.didChangeDependencies();
-    check=check!+1;
+    check=check+1;
     print('$check');
   }
 

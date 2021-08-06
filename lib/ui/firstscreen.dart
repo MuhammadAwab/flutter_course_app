@@ -1,12 +1,14 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_course_app/ui/mybottombar.dart';
+import 'package:flutter_course_app/ui/registration.dart';
 import 'package:flutter_course_app/utils/app_colors.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 class FirstScreen extends StatefulWidget {
-  const FirstScreen({Key? key}) : super(key: key);
+  const FirstScreen({Key key}) : super(key: key);
   @override
   _FirstScreenState createState() => _FirstScreenState();
 }
@@ -15,7 +17,7 @@ class _FirstScreenState extends State<FirstScreen> {
   GlobalKey<ScaffoldState> _gKey = new GlobalKey<ScaffoldState>();
   bool _showSheet = false;
   IconData myIcon = Icons.check;
-  PersistentBottomSheetController? _sheetController;
+  PersistentBottomSheetController _sheetController;
 
   @override
   void initState() {
@@ -40,7 +42,7 @@ class _FirstScreenState extends State<FirstScreen> {
             onPressed: (){
               if(!_showSheet){
                 setState(() {
-                  _sheetController = _gKey.currentState!.showBottomSheet((context){
+                  _sheetController = _gKey.currentState.showBottomSheet((context){
                     return _myBottomSheet();
                   });
                   myIcon = Icons.close;
@@ -50,7 +52,7 @@ class _FirstScreenState extends State<FirstScreen> {
               }
               else{
                 setState(() {
-                  _sheetController!.close();
+                  _sheetController.close();
                   _sheetController=null;
                   myIcon = Icons.check;
                   _showSheet=false;
@@ -207,6 +209,17 @@ class _FirstScreenState extends State<FirstScreen> {
             toastLength: Toast.LENGTH_LONG,
             backgroundColor: AppColors.primary,
         );
+        if(type=="Sign Out"){
+          _showLoadingDialog(context);
+          FirebaseAuth.instance.signOut().then((value){
+            Navigator.pop(context);
+            Navigator.of(context).push(MaterialPageRoute(
+                builder: (BuildContext context) {
+                  return Registration();
+                }
+            ));
+          });
+        }
       },
     );
   }
@@ -261,6 +274,21 @@ class _FirstScreenState extends State<FirstScreen> {
     return Tab(
       text: type,
       icon: Icon(iconData),
+    );
+  }
+
+  void _showLoadingDialog(BuildContext context){
+    showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          content: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              Text('Loading'),
+              CircularProgressIndicator()
+            ],
+          ),
+        )
     );
   }
   

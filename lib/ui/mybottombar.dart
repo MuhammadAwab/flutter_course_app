@@ -7,7 +7,7 @@ import 'package:flutter_course_app/ui/settings.dart';
 import 'package:flutter_course_app/utils/app_colors.dart';
 
 class MyBottomBar extends StatefulWidget {
-  MyBottomBar({Key? key,required this.currIndex}) : super(key: key);
+  MyBottomBar({Key key,@required this.currIndex}) : super(key: key);
   final int currIndex;
   @override
   _MyBottomBarState createState() => _MyBottomBarState();
