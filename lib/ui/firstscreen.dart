@@ -1,11 +1,18 @@
+import 'dart:convert';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_course_app/Articles.dart';
 import 'package:flutter_course_app/ui/mybottombar.dart';
 import 'package:flutter_course_app/ui/registration.dart';
 import 'package:flutter_course_app/utils/app_colors.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:http/http.dart' as http;
+
+import '../data.dart';
+
 
 class FirstScreen extends StatefulWidget {
   const FirstScreen({Key key}) : super(key: key);
@@ -18,11 +25,13 @@ class _FirstScreenState extends State<FirstScreen> {
   bool _showSheet = false;
   IconData myIcon = Icons.check;
   PersistentBottomSheetController _sheetController;
-
+  String baseUrl = "newsapi.org";
+  String endPoint = "/v2/everything";
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+    getAPIResponse();
   }
 
   @override
@@ -213,7 +222,7 @@ class _FirstScreenState extends State<FirstScreen> {
           _showLoadingDialog(context);
           FirebaseAuth.instance.signOut().then((value){
             Navigator.pop(context);
-            Navigator.of(context).push(MaterialPageRoute(
+            Navigator.of(context).pushReplacement(MaterialPageRoute(
                 builder: (BuildContext context) {
                   return Registration();
                 }
@@ -290,6 +299,26 @@ class _FirstScreenState extends State<FirstScreen> {
           ),
         )
     );
+  }
+
+  void getAPIResponse() async{
+    Map<String,String> headers = {
+      "qInTitle":"coronavirus",
+      "from":"2021-08-10",
+      "sortBy":"popularity",
+      "apiKey":"c9edcd18952c47329d7f0c8052584ab4"
+    };
+    var url = Uri.https(baseUrl, endPoint,headers);
+    print("URL : $url");
+    await http.get(url).then((response){
+      dynamic res = jsonDecode(response.body);
+      List<dynamic> articles= res["articles"];
+      articles.forEach((article) {
+        Articles myArticle = new Articles.fromJson(article);
+        print("Content : ${myArticle.content}");
+      });
+    });
+
   }
   
 }

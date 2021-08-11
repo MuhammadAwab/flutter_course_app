@@ -18,6 +18,12 @@ class _LoginScreenState extends State<LoginScreen> {
   bool hiddenPassword = true;
 
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
